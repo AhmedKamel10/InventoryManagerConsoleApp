@@ -12,3 +12,4 @@
 /home/ahmed/MyConsoleApp/obj/Debug/net8.0/MyConsoleApp.pdb
 /home/ahmed/MyConsoleApp/obj/Debug/net8.0/MyConsoleApp.genruntimeconfig.cache
 /home/ahmed/MyConsoleApp/obj/Debug/net8.0/ref/MyConsoleApp.dll
+/home/ahmed/MyConsoleApp/obj/Debug/net8.0/MyConsoleApp.sourcelink.json

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using InventoryManagementSystem;
 using InventoryManagementSystem.Models;
 using myconsoleapp.Helpers;
@@ -7,8 +8,10 @@ class Program
 {
     static void Main()
     {
+
         InventoryManager manager = new();
         ErrorHandler errorHandler = new();
+        Stopwatch stopwatch = new();
 
         Console.WriteLine("Welcome to Inventory Management System!");
         Console.WriteLine("Commands:");
@@ -17,9 +20,11 @@ class Program
         Console.WriteLine("  list");
         Console.WriteLine("  remove <item_id>");
         Console.WriteLine("  exit");
+        int exceptionCount = 0;
 
         while (true)
         {
+
             Console.Write("\nEnter command: ");
             var input = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(input))
@@ -30,6 +35,8 @@ class Program
 
             try
             {
+                stopwatch.Restart();
+
                 if (command == "add" && parts.Length > 1)
                 {
                     if (parts[1].ToLower() == "electronics" && parts.Length == 6)
@@ -57,6 +64,8 @@ class Program
                     }
                     else
                     {
+                        exceptionCount++;
+                        Console.WriteLine($"exception_count:{exceptionCount}");
                         Console.WriteLine("Invalid add command format.");
                     }
                 }
@@ -77,12 +86,25 @@ class Program
                 }
                 else
                 {
+
                     Console.WriteLine("Unknown command or invalid parameters.");
+
+                        exceptionCount++;
+                        Console.WriteLine($"exception_count:{exceptionCount}");
+                    
                 }
+
+                stopwatch.Stop();
+                Console.WriteLine($"Command execution took: {stopwatch.ElapsedMilliseconds} ms");
             }
             catch (Exception ex)
             {
+                exceptionCount++;
+
+                stopwatch.Stop();
                 errorHandler.Handle(ex);
+                Console.WriteLine($"Command failed after {stopwatch.ElapsedMilliseconds} ms");
+                Console.WriteLine($"exception_count:{exceptionCount}");
             }
         }
 
